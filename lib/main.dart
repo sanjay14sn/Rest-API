@@ -46,7 +46,16 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
       appBar:AppBar(
         backgroundColor:Colors.blue,
-        actions: [],
+        actions: [
+          IconButton(onPressed: (){
+             setState(() {
+              Data  = [{"id":7,"email":"tracey.ramos@reqres.in",
+                "first_name":"Tracey",
+                "last_name":"Ramos",
+                "avatar":"https://reqres.in/img/faces/6-image.jpg"}];
+            });
+          }, icon: Icon(Icons.add_outlined)),
+        ],
         title: Text("API"),),
       body: ListView.builder(itemCount:Data.length,
         itemBuilder:(context, index) {
@@ -54,7 +63,7 @@ class _MyAppState extends State<MyApp> {
             leading: CircleAvatar(
               backgroundImage: NetworkImage(Data[index]['avatar']),
             ),
-            title: Text(Data[index]['first_name'],style:TextStyle(
+            title: Text(Data[index]['id'].toString(),style:TextStyle(
                 fontSize:20,fontWeight:FontWeight.bold
             ),),
             subtitle: Text(Data[index]['email'],style:TextStyle(
