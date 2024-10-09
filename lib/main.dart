@@ -19,66 +19,65 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List Data =[];
+  List data =[];
+  Future<void> fetchdata() async{
+    final res = await http.get(Uri.parse("https://retoolapi.dev/gTJd0N/data"));
 
-  Future<void> fetchdata() async {
-    final res = await http.get(Uri.parse("https://reqres.in/api/users?page=1"));
-    print("API");
-    print(res.body.toString());
+   // print(res.body.toString());
+    setState(() { data = jsonDecode(res.body);
 
-    setState(() {
-      Data   = json.decode(res.body)['data'];
     });
 
-
+    print(data.toString());
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     fetchdata();
   }
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        backgroundColor:Colors.blue,
-        actions: [
-          IconButton(onPressed: (){
-             setState(() {
-              Data  += [{"id":Data.length+1 ,
-                "email":"tracey.ramos@reqres.in",
-                "first_name":"Tracey",
-                "last_name":"Ramos",
-                "avatar":"https://reqres.in/img/faces/6-image.jpg"}];
-            });
-          }, icon: Icon(Icons.add_outlined)),
-        ],
-        title: Text("API"),),
-      body: ListView.builder(itemCount:Data.length,
-        itemBuilder:(context, index) {
-          return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(Data[index]['avatar']),
-            ),
-            trailing: IconButton(onPressed: (){
-              setState(() {
-                Data.removeWhere((entry)=> entry["id"] == Data[index]["id"]);
-              });
-            },
-                icon: Icon(Icons.delete,color:Colors.red,)),
+        backgroundColor: Colors.yellow,
+        title:Text("USER DETAIL"),
+        actions: [IconButton(onPressed: (){
+          print("working");}, icon: Icon(Icons.add))],
+      ),
+      body:ListView.builder(itemCount:data.length,
+    itemBuilder: (context,index){
+        return Padding(
+          padding: EdgeInsets.all(9.0),
+        child: Container(
+        height: 150,
+        width: double.infinity,
+        color:Colors.blue,
+        child: Row(
+          children: [
+            Column(children: [
+              Container(
+                height:150,
+                width:150,
+                decoration: BoxDecoration(
+                  color:Colors.white,
+                  image: DecorationImage
+                    (image: NetworkImage(data[index]['Logo']),
+                    fit: BoxFit.cover,
+                  ),
+                ),
 
-            title: Text(Data[index]['first_name'],style:TextStyle(
-                fontSize:20,fontWeight:FontWeight.bold
-            ),),
-            subtitle: Text(Data[index]['email'],style:TextStyle(
-                fontSize:15,fontStyle: FontStyle.italic)),
+              )
+            ],
+            )
+          ],
+        ),),
 
-          );
-        },),
+
+
+        );
+    } ),
     );
   }
 }
