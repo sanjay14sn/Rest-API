@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
         actions: [
           IconButton(onPressed: (){
              setState(() {
-              Data  = [{"id":7,"email":"tracey.ramos@reqres.in",
+              Data  += [{"id":7,"email":"tracey.ramos@reqres.in",
                 "first_name":"Tracey",
                 "last_name":"Ramos",
                 "avatar":"https://reqres.in/img/faces/6-image.jpg"}];
