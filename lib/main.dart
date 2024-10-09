@@ -65,11 +65,26 @@ class _MyAppState extends State<MyApp> {
                   image: DecorationImage
                     (image: NetworkImage(data[index]['Logo']),
                     fit: BoxFit.cover,
+
                   ),
                 ),
 
               )
             ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Text(data[index]["Name"],
+                    style:TextStyle(fontWeight:FontWeight.bold),),
+                  Text(data[index]["Email"]),
+                  Text(data[index]["Phone"]),
+                  Text(data[index]["Rating"])
+
+
+                ],
+              ),
             )
           ],
         ),),
