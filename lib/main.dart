@@ -49,7 +49,8 @@ class _MyAppState extends State<MyApp> {
         actions: [
           IconButton(onPressed: (){
              setState(() {
-              Data  += [{"id":7,"email":"tracey.ramos@reqres.in",
+              Data  += [{"id":Data.length+1 ,
+                "email":"tracey.ramos@reqres.in",
                 "first_name":"Tracey",
                 "last_name":"Ramos",
                 "avatar":"https://reqres.in/img/faces/6-image.jpg"}];
@@ -63,7 +64,14 @@ class _MyAppState extends State<MyApp> {
             leading: CircleAvatar(
               backgroundImage: NetworkImage(Data[index]['avatar']),
             ),
-            title: Text(Data[index]['id'].toString(),style:TextStyle(
+            trailing: IconButton(onPressed: (){
+              setState(() {
+                Data.removeWhere((entry)=> entry["id"] == Data[index]["id"]);
+              });
+            },
+                icon: Icon(Icons.delete,color:Colors.red,)),
+
+            title: Text(Data[index]['first_name'],style:TextStyle(
                 fontSize:20,fontWeight:FontWeight.bold
             ),),
             subtitle: Text(Data[index]['email'],style:TextStyle(
